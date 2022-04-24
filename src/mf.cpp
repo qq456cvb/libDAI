@@ -12,7 +12,8 @@
 #include <set>
 #include <dai/mf.h>
 #include <dai/util.h>
-
+#include <random>
+extern std::default_random_engine rng;
 
 namespace dai {
 
@@ -125,7 +126,7 @@ Real MF::run() {
     // been reached or until the maximum belief difference is smaller than tolerance
     Real maxDiff = INFINITY;
     for( _iters = 0; _iters < props.maxiter && maxDiff > props.tol; _iters++ ) {
-        random_shuffle( update_seq.begin(), update_seq.end(), rnd );
+        std::shuffle( update_seq.begin(), update_seq.end(), rng );
 
         maxDiff = -INFINITY;
         bforeach( const size_t &i, update_seq ) {

@@ -8,8 +8,9 @@
 
 #include <dai/util.h>
 #include <boost/random.hpp>
+#include <random>
 
-#ifdef WINDOWS
+#ifdef _WIN32
     #include <windows.h>
     #include <boost/math/special_functions/atanh.hpp>  // for atanh
     #include <boost/math/special_functions/log1p.hpp>  // for log1p
@@ -19,8 +20,10 @@
     #include <sys/time.h>
 #endif
 
+auto rng = std::default_random_engine {};
 
-#ifdef WINDOWS
+
+#ifdef _WIN32
 double atanh( double x ) {
     return boost::math::atanh( x );
 }
@@ -48,7 +51,7 @@ bool isnan( Real x ) {
 
 // Returns user+system time in seconds
 double toc() {
-#ifdef WINDOWS
+#ifdef _WIN32
     SYSTEMTIME tbuf;
     GetSystemTime(&tbuf);
     return( (double)(tbuf.wSecond + (double)tbuf.wMilliseconds / 1000.0) );

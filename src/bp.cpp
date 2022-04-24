@@ -14,7 +14,8 @@
 #include <dai/bp.h>
 #include <dai/util.h>
 #include <dai/properties.h>
-
+#include <random>
+extern std::default_random_engine rng;
 
 namespace dai {
 
@@ -308,7 +309,7 @@ Real BP::run() {
         } else {
             // Sequential updates
             if( props.updates == Properties::UpdateType::SEQRND )
-                random_shuffle( _updateSeq.begin(), _updateSeq.end(), rnd );
+                std::shuffle( _updateSeq.begin(), _updateSeq.end(), rng );
 
             bforeach( const Edge &e, _updateSeq ) {
                 calcNewMessage( e.first, e.second );

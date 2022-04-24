@@ -18,6 +18,8 @@
 #include <dai/graph.h>
 #include <dai/enum.h>
 #include <dai/properties.h>
+#include <random>
+extern std::default_random_engine rng;
 
 
 using namespace std;
@@ -167,8 +169,8 @@ BipartiteGraph createRandomBipartiteGraph( size_t N1, size_t N2, size_t d1, size
             stubs2[n2*d2 + t] = n2;
 
     // shuffle lists
-    random_shuffle( stubs1.begin(), stubs1.end(), rnd );
-    random_shuffle( stubs2.begin(), stubs2.end(), rnd );
+    std::shuffle( stubs1.begin(), stubs1.end(), rng );
+    std::shuffle( stubs2.begin(), stubs2.end(), rng );
 
     // add edges
     vector<Edge> edges;

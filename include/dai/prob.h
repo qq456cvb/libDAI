@@ -28,7 +28,7 @@ namespace dai {
 
 
 /// Function object that returns the value itself
-template<typename T> struct fo_id : public std::unary_function<T, T> {
+template<typename T> struct fo_id {
     /// Returns \a x
     T operator()( const T &x ) const {
         return x;
@@ -37,7 +37,7 @@ template<typename T> struct fo_id : public std::unary_function<T, T> {
 
 
 /// Function object that takes the absolute value
-template<typename T> struct fo_abs : public std::unary_function<T, T> {
+template<typename T> struct fo_abs {
     /// Returns abs(\a x)
     T operator()( const T &x ) const {
         if( x < (T)0 )
@@ -49,7 +49,7 @@ template<typename T> struct fo_abs : public std::unary_function<T, T> {
 
 
 /// Function object that takes the exponent
-template<typename T> struct fo_exp : public std::unary_function<T, T> {
+template<typename T> struct fo_exp {
     /// Returns exp(\a x)
     T operator()( const T &x ) const {
         return exp( x );
@@ -58,7 +58,7 @@ template<typename T> struct fo_exp : public std::unary_function<T, T> {
 
 
 /// Function object that takes the logarithm
-template<typename T> struct fo_log : public std::unary_function<T, T> {
+template<typename T> struct fo_log {
     /// Returns log(\a x)
     T operator()( const T &x ) const {
         return log( x );
@@ -67,7 +67,7 @@ template<typename T> struct fo_log : public std::unary_function<T, T> {
 
 
 /// Function object that takes the logarithm, except that log(0) is defined to be 0
-template<typename T> struct fo_log0 : public std::unary_function<T, T> {
+template<typename T> struct fo_log0 {
     /// Returns (\a x == 0 ? 0 : log(\a x))
     T operator()( const T &x ) const {
         if( x )
@@ -79,7 +79,7 @@ template<typename T> struct fo_log0 : public std::unary_function<T, T> {
 
 
 /// Function object that takes the inverse
-template<typename T> struct fo_inv : public std::unary_function<T, T> {
+template<typename T> struct fo_inv {
     /// Returns 1 / \a x
     T operator()( const T &x ) const {
         return 1 / x;
@@ -88,7 +88,7 @@ template<typename T> struct fo_inv : public std::unary_function<T, T> {
 
 
 /// Function object that takes the inverse, except that 1/0 is defined to be 0
-template<typename T> struct fo_inv0 : public std::unary_function<T, T> {
+template<typename T> struct fo_inv0 {
     /// Returns (\a x == 0 ? 0 : (1 / \a x))
     T operator()( const T &x ) const {
         if( x )
@@ -100,7 +100,7 @@ template<typename T> struct fo_inv0 : public std::unary_function<T, T> {
 
 
 /// Function object that returns p*log0(p)
-template<typename T> struct fo_plog0p : public std::unary_function<T, T> {
+template<typename T> struct fo_plog0p {
     /// Returns \a p * log0(\a p)
     T operator()( const T &p ) const {
         return p * dai::log0(p);
@@ -109,7 +109,7 @@ template<typename T> struct fo_plog0p : public std::unary_function<T, T> {
 
 
 /// Function object similar to std::divides(), but different in that dividing by zero results in zero
-template<typename T> struct fo_divides0 : public std::binary_function<T, T, T> {
+template<typename T> struct fo_divides0 {
     /// Returns (\a y == 0 ? 0 : (\a x / \a y))
     T operator()( const T &x, const T &y ) const {
         if( y == (T)0 )
@@ -121,7 +121,7 @@ template<typename T> struct fo_divides0 : public std::binary_function<T, T, T> {
 
 
 /// Function object useful for calculating the KL distance
-template<typename T> struct fo_KL : public std::binary_function<T, T, T> {
+template<typename T> struct fo_KL {
     /// Returns (\a p == 0 ? 0 : (\a p * (log(\a p) - log(\a q))))
     T operator()( const T &p, const T &q ) const {
         if( p == (T)0 )
@@ -133,7 +133,7 @@ template<typename T> struct fo_KL : public std::binary_function<T, T, T> {
 
 
 /// Function object useful for calculating the Hellinger distance
-template<typename T> struct fo_Hellinger : public std::binary_function<T, T, T> {
+template<typename T> struct fo_Hellinger {
     /// Returns (sqrt(\a p) - sqrt(\a q))^2
     T operator()( const T &p, const T &q ) const {
         T x = sqrt(p) - sqrt(q);
@@ -143,7 +143,7 @@ template<typename T> struct fo_Hellinger : public std::binary_function<T, T, T> 
 
 
 /// Function object that returns x to the power y
-template<typename T> struct fo_pow : public std::binary_function<T, T, T> {
+template<typename T> struct fo_pow {
     /// Returns (\a x ^ \a y)
     T operator()( const T &x, const T &y ) const {
         if( y != 1 )
@@ -155,7 +155,7 @@ template<typename T> struct fo_pow : public std::binary_function<T, T, T> {
 
 
 /// Function object that returns the maximum of two values
-template<typename T> struct fo_max : public std::binary_function<T, T, T> {
+template<typename T> struct fo_max {
     /// Returns (\a x > y ? x : y)
     T operator()( const T &x, const T &y ) const {
         return (x > y) ? x : y;
@@ -164,7 +164,7 @@ template<typename T> struct fo_max : public std::binary_function<T, T, T> {
 
 
 /// Function object that returns the minimum of two values
-template<typename T> struct fo_min : public std::binary_function<T, T, T> {
+template<typename T> struct fo_min {
     /// Returns (\a x > y ? y : x)
     T operator()( const T &x, const T &y ) const {
         return (x > y) ? y : x;
@@ -173,7 +173,7 @@ template<typename T> struct fo_min : public std::binary_function<T, T, T> {
 
 
 /// Function object that returns the absolute difference of x and y
-template<typename T> struct fo_absdiff : public std::binary_function<T, T, T> {
+template<typename T> struct fo_absdiff {
     /// Returns abs( \a x - \a y )
     T operator()( const T &x, const T &y ) const {
         return dai::abs( x - y );
@@ -378,7 +378,7 @@ class TProb {
 
         /// Returns \c true if one or more entries are negative
         bool hasNegatives() const {
-            return (std::find_if( _p.begin(), _p.end(), std::bind2nd( std::less<T>(), (T)0 ) ) != _p.end());
+            return (std::find_if( _p.begin(), _p.end(), std::bind( std::less<T>(), std::placeholders::_1, (T)0 ) ) != _p.end());
         }
 
         /// Returns a pair consisting of the index of the maximum value and the maximum value itself
@@ -474,7 +474,7 @@ class TProb {
                 DAI_THROW(NOT_NORMALIZABLE);
                 return *this;
             } else
-                return pwUnaryTr( std::bind2nd( std::divides<T>(), Z ) );
+                return pwUnaryTr( std::bind( std::divides<T>(), std::placeholders::_1, Z ) );
         }
     //@}
 
@@ -542,7 +542,7 @@ class TProb {
         /// Adds scalar \a x to each entry
         this_type& operator+= (T x) {
             if( x != 0 )
-                return pwUnaryOp( std::bind2nd( std::plus<T>(), x ) );
+                return pwUnaryOp( std::bind( std::plus<T>(), std::placeholders::_1, x ) );
             else
                 return *this;
         }
@@ -550,7 +550,7 @@ class TProb {
         /// Subtracts scalar \a x from each entry
         this_type& operator-= (T x) {
             if( x != 0 )
-                return pwUnaryOp( std::bind2nd( std::minus<T>(), x ) );
+                return pwUnaryOp( std::bind( std::minus<T>(), std::placeholders::_1, x ) );
             else
                 return *this;
         }
@@ -558,7 +558,7 @@ class TProb {
         /// Multiplies each entry with scalar \a x
         this_type& operator*= (T x) {
             if( x != 1 )
-                return pwUnaryOp( std::bind2nd( std::multiplies<T>(), x ) );
+                return pwUnaryOp( std::bind( std::multiplies<T>(), std::placeholders::_1, x ) );
             else
                 return *this;
         }
@@ -566,7 +566,7 @@ class TProb {
         /// Divides each entry by scalar \a x, where division by 0 yields 0
         this_type& operator/= (T x) {
             if( x != 1 )
-                return pwUnaryOp( std::bind2nd( fo_divides0<T>(), x ) );
+                return pwUnaryOp( std::bind( fo_divides0<T>(), std::placeholders::_1, x ) );
             else
                 return *this;
         }
@@ -574,7 +574,7 @@ class TProb {
         /// Raises entries to the power \a x
         this_type& operator^= (T x) {
             if( x != (T)1 )
-                return pwUnaryOp( std::bind2nd( fo_pow<T>(), x) );
+                return pwUnaryOp( std::bind( fo_pow<T>(), std::placeholders::_1, x) );
             else
                 return *this;
         }
@@ -583,19 +583,19 @@ class TProb {
     /// \name Transformations with scalars
     //@{
         /// Returns sum of \c *this and scalar \a x
-        this_type operator+ (T x) const { return pwUnaryTr( std::bind2nd( std::plus<T>(), x ) ); }
+        this_type operator+ (T x) const { return pwUnaryTr( std::bind( std::plus<T>(), std::placeholders::_1, x ) ); }
 
         /// Returns difference of \c *this and scalar \a x
-        this_type operator- (T x) const { return pwUnaryTr( std::bind2nd( std::minus<T>(), x ) ); }
+        this_type operator- (T x) const { return pwUnaryTr( std::bind( std::minus<T>(), std::placeholders::_1, x ) ); }
 
         /// Returns product of \c *this with scalar \a x
-        this_type operator* (T x) const { return pwUnaryTr( std::bind2nd( std::multiplies<T>(), x ) ); }
+        this_type operator* (T x) const { return pwUnaryTr( std::bind( std::multiplies<T>(), std::placeholders::_1, x ) ); }
 
         /// Returns quotient of \c *this and scalar \a x, where division by 0 yields 0
-        this_type operator/ (T x) const { return pwUnaryTr( std::bind2nd( fo_divides0<T>(), x ) ); }
+        this_type operator/ (T x) const { return pwUnaryTr( std::bind( fo_divides0<T>(), std::placeholders::_1, x ) ); }
 
         /// Returns \c *this raised to the power \a x
-        this_type operator^ (T x) const { return pwUnaryTr( std::bind2nd( fo_pow<T>(), x ) ); }
+        this_type operator^ (T x) const { return pwUnaryTr( std::bind( fo_pow<T>(), std::placeholders::_1, x ) ); }
     //@}
 
     /// \name Operations with other equally-sized vectors

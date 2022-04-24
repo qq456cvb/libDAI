@@ -24,20 +24,11 @@
 #include <boost/lexical_cast.hpp>
 #include <algorithm>
 #include <cerrno>
-#include <gmpxx.h>
 
 #include <dai/exceptions.h>
 
 
-#if defined(WINDOWS)
-    #include <boost/tr1/unordered_map.hpp> // only present in boost 1.37 and higher
-#elif defined(CYGWIN)
-    #include <boost/tr1/unordered_map.hpp> // only present in boost 1.37 and higher
-#elif defined(MACOSX)
-    #include <boost/tr1/unordered_map.hpp> // only present in boost 1.37 and higher
-#else
-    #include <tr1/unordered_map> // only present in modern GCC distributions
-#endif
+#include <unordered_map> // only present in modern GCC distributions
 
 
 /// An alias to the BOOST_FOREACH macro from the boost::bforeach library
@@ -62,7 +53,7 @@
 #define DAI_IFVERB(n, stmt) if(props.verbose>=n) { std::cerr << stmt; }
 
 
-#ifdef WINDOWS
+#ifdef _WIN32
     /// Returns inverse hyperbolic tangent of argument
     double atanh( double x );
 
@@ -81,12 +72,12 @@ namespace dai {
 typedef double Real;
 
 /// Arbitrary precision integer number
-typedef mpz_class BigInt;
+typedef int64_t BigInt;
 
 /// Safe down-cast of big integer to size_t
 inline size_t BigInt_size_t( const BigInt &N ) {
     DAI_ASSERT( N <= std::numeric_limits<std::size_t>::max() );
-    return N.get_ui();
+    return static_cast<size_t>(N);
 }
 
 /// Returns true if argument is NAN (Not A Number)
@@ -120,7 +111,7 @@ inline Real pow( Real x, Real y ) {
 /** We use the (experimental) TR1 unordered_map implementation included in modern GCC distributions or in boost versions 1.37 and higher.
  */
 template <typename T, typename U, typename H = boost::hash<T> >
-    class hash_map : public std::tr1::unordered_map<T,U,H> {};
+    class hash_map : public std::unordered_map<T,U,H> {};
 
 
 /// Returns wall clock time in seconds
@@ -150,7 +141,6 @@ int rnd_int( int min, int max );
 inline int rnd( int n ) {
     return rnd_int( 0, n-1 );
 }
-
 
 /// Converts a variable of type \a T to a \c std::string by using a \c boost::lexical_cast
 template<class T>

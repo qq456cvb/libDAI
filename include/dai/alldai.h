@@ -25,42 +25,18 @@
 #include <dai/exactinf.h>
 #include <dai/evidence.h>
 #include <dai/emalg.h>
-#ifdef DAI_WITH_BP
-    #include <dai/bp.h>
-#endif
-#ifdef DAI_WITH_FBP
-    #include <dai/fbp.h>
-#endif
-#ifdef DAI_WITH_TRWBP
-    #include <dai/trwbp.h>
-#endif
-#ifdef DAI_WITH_MF
-    #include <dai/mf.h>
-#endif
-#ifdef DAI_WITH_HAK
-    #include <dai/hak.h>
-#endif
-#ifdef DAI_WITH_LC
-    #include <dai/lc.h>
-#endif
-#ifdef DAI_WITH_TREEEP
-    #include <dai/treeep.h>
-#endif
-#ifdef DAI_WITH_JTREE
-    #include <dai/jtree.h>
-#endif
-#ifdef DAI_WITH_MR
-    #include <dai/mr.h>
-#endif
-#ifdef DAI_WITH_GIBBS
-    #include <dai/gibbs.h>
-#endif
-#ifdef DAI_WITH_CBP
-    #include <dai/cbp.h>
-#endif
-#ifdef DAI_WITH_DECMAP
-    #include <dai/decmap.h>
-#endif
+#include <dai/bp.h>
+#include <dai/fbp.h>
+#include <dai/trwbp.h>
+#include <dai/mf.h>
+#include <dai/hak.h>
+#include <dai/lc.h>
+#include <dai/treeep.h>
+#include <dai/jtree.h>
+#include <dai/mr.h>
+#include <dai/gibbs.h>
+#include <dai/cbp.h>
+#include <dai/decmap.h>
 
 
 /// Namespace for libDAI
